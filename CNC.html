@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNC</title>
+    <title>ルーター切削/レーザーカット</title>
     <script src="./tailwind.js"></script>
     <script>
         // 設定 Tailwind CSS 以支援 class 模式的黑夜模式
@@ -88,24 +88,24 @@
         </div>
         <div class="flex gap-3 items-center">
             <!-- 返回上一頁按鈕 -->
-            <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="返回上一頁 / Go Back">
+            <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="前のページに戻る">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <line x1="20" y1="12" x2="4" y2="12"></line>
                     <polyline points="10 18 4 12 10 6"></polyline>
                 </svg>
             </button>
             <!-- 主題切換按鈕 -->
-            <button id="theme-toggle" class="p-1.5 rounded-lg text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center justify-center" aria-label="Toggle Theme">
+            <button id="theme-toggle" class="p-1.5 rounded-lg text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center justify-center" aria-label="テーマを切り替え">
                 <svg id="theme-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <!-- 圖示由 JS 動態注入 -->
                 </svg>
             </button>
             <!-- 語系切換按鈕 -->
             <button id="lang-toggle" class="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-2">
-                <span>中文 / EN</span>
+                <span>中文 / 日本語</span>
             </button>
             <!-- 書頁按鈕 (工藝參數) -->
-            <a href="params.html" class="flex items-center justify-center text-slate-300 hover:text-emerald-400 transition-colors bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="工藝參數建議 / Parameters Guide">
+            <a href="params.html" class="flex items-center justify-center text-slate-300 hover:text-emerald-400 transition-colors bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="加工条件ガイド">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
@@ -620,12 +620,12 @@
                 high: v => `${v.name}：橋位高度 ${v.H} mm ≥ 加工深度 ${v.D} mm，橋位已達材料表面 (底部完全未切斷)`
             },
             en: {
-                short: v => `${v.name}: path is only ${v.L} mm, too short for a ${v.W} mm tab. No tab added`,
-                reduced: v => `${v.name}: path (${v.L} mm) is short, tab count reduced from ${v.n0} to ${v.n}`,
-                gap: v => `${v.name}: tabs are too close (min clear gap ${v.gap} mm, recommended >= ${v.min} mm)`,
-                near: v => `${v.name}: two tabs are only ${v.d} mm apart in a straight line (recommended >= ${v.min} mm). Part is too small/narrow`,
-                ratio: v => `${v.name}: tabs occupy ${v.pct}% of the path, the part will be hard to remove`,
-                high: v => `${v.name}: tab height ${v.H} mm >= cutting depth ${v.D} mm, tab reaches the material surface (not cut through)`
+                short: v => `${v.name}：経路長が${v.L} mmしかなく、幅${v.W} mmのタブを配置できません。タブは追加されませんでした`,
+                reduced: v => `${v.name}：経路長（${v.L} mm）が短いため、タブ数を${v.n0}個から${v.n}個に減らしました`,
+                gap: v => `${v.name}：タブ同士が近すぎます（最小間隔 ${v.gap} mm、推奨 ${v.min} mm以上）`,
+                near: v => `${v.name}：2つのタブ間の直線距離は${v.d} mmです（推奨 ${v.min} mm以上）。パーツが小さすぎるか、幅が狭すぎます`,
+                ratio: v => `${v.name}：タブが経路の${v.pct}%を占めており、加工後にパーツを取り外しにくくなる可能性があります`,
+                high: v => `${v.name}：タブ高さ ${v.H} mm が加工深さ ${v.D} mm以上のため、タブが材料表面まで達しています（底面が切断されません）`
             }
         };
 
@@ -671,7 +671,7 @@
             if (!msgs.length) { box.classList.add('hidden'); box.innerHTML = ''; return; }
             box.classList.remove('hidden');
             const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-            const title = currentLang === 'zh' ? '⚠ 橋位警告' : '⚠ Tab warnings';
+            const title = currentLang === 'zh' ? '⚠ 橋位警告' : '⚠ タブに関する警告';
             box.innerHTML = `<div class="font-bold mb-1">${title}</div>` + msgs.map(m => `<div>• ${esc(m)}</div>`).join('');
         }
 
@@ -729,60 +729,60 @@
                 depthLevel: "深度階層"
             },
             en: {
-                appTitle: "Cut Converter",
-                step1: "Step 1: File & Parsing",
-                chooseFile: "Browse File",
-                noFile: "No file chosen",
-                targetWidth: "Total Width (mm)",
-                threshold: "B/W Threshold",
-                smoothness: "Simplification",
-                smoothLeft: "← High Detail",
-                smoothRight: "Smooth & Simple →",
-                reprocess: "Reprocess File",
-                step2: "Step 2: Parts List",
-                selectAll: "Select / Deselect All",
-                legendOriginal: "Deselected Path",
-                legendSelected: "Selected Path",
-                legendToolpath: "Toolpath (Yellow)",
-                estTime: "Estimated Total Time",
-                downloadBtn: "Download file",
-                jobSettings: "Step 3: Job Parameters(mm)",
-                groupSize: "Selection Group Size",
-                width: "Width",
-                height: "Height",
-                resolution: "Resolution",
-                feedRate: "Feed Rate (F)",
-                mode: "Process Mode",
-                optLaser: "Laser Cutting",
-                optOuter: "Mill Outside",
-                optInner: "Mill Inside",
-                optPocket: "Mill Pocket",
-                useTab: "Enable Tabs (Bridge)",
-                tabWidth: "Tab Width (3~8mm)",
-                tabHeight: "Tab Height (2~6mm)",
-                tabHint: "Tabs spread evenly: path <=200mm 2, 201~600mm 3, >600mm 4",
-                toolDia: "Tool Diameter",
-                totalDepth: "Total Depth",
-                stepDown: "Step Down",
-                overlap: "Overlap Ratio",
-                updateBtn: "Update Toolpaths",
-                selectionHint: "Please select a part from the list<br>to start adjusting parameters",
-                partName: "Part",
-                method: "Method",
-                notApplied: "None",
-                groupBy: "Group By:",
-                groupNone: "No Grouping",
-                groupMethodOpt: "Group by Method",
-                groupContainmentOpt: "Group by Containment",
-                groupLayerOpt: "Group by Layer",
-                layerPrefix: "Layer",
-                quickApply: "Quick Apply",
-                depthLevel: "Nesting Depth"
+                appTitle: "ルーター切削/レーザーカット",
+                step1: "ステップ1：ファイル選択と解析",
+                chooseFile: "ファイルを選択",
+                noFile: "ファイルが選択されていません",
+                targetWidth: "全体幅 (mm)",
+                threshold: "白黒のしきい値",
+                smoothness: "簡略化",
+                smoothLeft: "← 詳細",
+                smoothRight: "滑らか・シンプル →",
+                reprocess: "ファイルを再解析",
+                step2: "ステップ2：パーツ一覧",
+                selectAll: "すべて選択 / 選択解除",
+                legendOriginal: "未選択パーツの輪郭",
+                legendSelected: "選択中パーツの輪郭",
+                legendToolpath: "加工経路（黄色）",
+                estTime: "推定加工時間",
+                downloadBtn: "ファイルをダウンロード",
+                jobSettings: "ステップ3：加工条件 (mm)",
+                groupSize: "選択中グループのサイズ",
+                width: "幅",
+                height: "高さ",
+                resolution: "解像度",
+                feedRate: "送り速度 (F)",
+                mode: "加工モード",
+                optLaser: "レーザー切断",
+                optOuter: "外側を切削",
+                optInner: "内側を切削",
+                optPocket: "ポケット加工",
+                useTab: "タブ（ブリッジ）を有効化",
+                tabWidth: "タブ幅 (3～8 mm)",
+                tabHeight: "タブ高さ (2～6 mm)",
+                tabHint: "タブを輪郭に均等配置：200 mm以下は2個、201～600 mmは3個、600 mm超は4個",
+                toolDia: "工具径",
+                totalDepth: "加工深さ",
+                stepDown: "1回あたりの切込み量",
+                overlap: "重なり率",
+                updateBtn: "加工経路を更新",
+                selectionHint: "一覧からパーツを選択して<br>加工条件を調整してください",
+                partName: "パーツ",
+                method: "加工方法",
+                notApplied: "未適用",
+                groupBy: "グループ化：",
+                groupNone: "グループ化しない",
+                groupMethodOpt: "加工方法でグループ化",
+                groupContainmentOpt: "内外関係でグループ化",
+                groupLayerOpt: "レイヤーでグループ化",
+                layerPrefix: "レイヤー",
+                quickApply: "一括適用",
+                depthLevel: "ネスト階層"
             }
         };
 
         // 讀取同步語系，預設繁中
-        let currentLang = localStorage.getItem('gordix-lang') || 'zh';
+        let currentLang = localStorage.getItem('gordix-lang') || 'en';
 
         function updateLanguage() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -2365,8 +2365,8 @@
                 let tabMsgs = [];
                 parts.forEach(p => { if (p.visible && p.toolpath && p.toolpath.length) tabMsgs = tabMsgs.concat(collectTabWarnings(p)); });
                 if (tabMsgs.length) {
-                    const head = currentLang === 'zh' ? '橋位有以下警告：' : 'Tab warnings:';
-                    const tail = currentLang === 'zh' ? '仍要輸出 G-code 嗎？' : 'Export G-code anyway?';
+                    const head = currentLang === 'zh' ? '橋位有以下警告：' : 'タブに関する警告：';
+                    const tail = currentLang === 'zh' ? '仍要輸出 G-code 嗎？' : 'このままGコードを書き出しますか？';
                     if (!confirm(head + '\n\n' + tabMsgs.map(m => '• ' + m).join('\n') + '\n\n' + tail)) return;
                 }
             }

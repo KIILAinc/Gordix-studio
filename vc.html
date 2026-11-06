@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V_Carving & Grayscale Relief 2.0</title>
+    <title>Vカービング・グレースケール浮き彫り 2.0</title>
     <!-- 引入 Tailwind CSS 與 Three.js 及其控制庫 -->
 <script src="./tailwind.js"></script>
     <script>
@@ -123,22 +123,22 @@
             <h1 class="text-2xl font-black tracking-tight text-white" data-i18n="appTitle">轉檔工具 2.0 (V雕刻 & 灰階浮雕)</h1>
         </div>
         <div class="flex gap-3 items-center">
-            <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="返回上一頁 / Go Back">
+            <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="前のページに戻る">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <line x1="20" y1="12" x2="4" y2="12"></line>
                     <polyline points="10 18 4 12 10 6"></polyline>
                 </svg>
             </button>
-            <button class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white hover:text-slate-200 border border-white/20 transition-all flex items-center justify-center cursor-pointer" onclick="toggleTheme()" aria-label="Toggle Theme">
+            <button class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white hover:text-slate-200 border border-white/20 transition-all flex items-center justify-center cursor-pointer" onclick="toggleTheme()" aria-label="テーマを切り替え">
                 <svg id="theme-icon" class="w-5 h-5" viewBox="0 0 24 24" style="width:18px; height:18px;" fill="currentColor">
                     <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41z"/>
                 </svg>
             </button>
             
             <button id="lang-toggle" class="px-4 py-1.5 rounded-lg text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-2 cursor-pointer">
-                <span>中文 / EN</span>
+                <span>中文 / 日本語</span>
             </button>
-            <a href="params.html" class="flex items-center justify-center text-slate-300 hover:text-emerald-400 transition-colors bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="工藝參數建議 / Parameters Guide">
+            <a href="params.html" class="flex items-center justify-center text-slate-300 hover:text-emerald-400 transition-colors bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="加工条件ガイド">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
@@ -411,60 +411,60 @@
                 vcarveErrorMsg: "目前配置無法執行V 雕刻。請增加加工深度、刀具角度或直徑，或調低整體寬"
             },
             en: {
-                appTitle: "V-Carve & Grayscale Relief Tool 2.0",
-                step1: "Step 1: File & Parsing",
-                chooseFile: "Choose File",
-                noFile: "No file selected",
-                targetWidth: "Total Width (mm)",
-                threshold: "Threshold",
-                smoothness: "Simplification",
-                highDetail: "← High Detail",
-                fewerNodes: "Smooth & Simple →",
-                lineVCarve: "Line V-Carve",
-                relief25D: "Grayscale Relief",
-                reprocess: "Reprocess File",
-                step2: "Step 2: Parts List",
-                sortHint: "(Sorted large to small)",
-                selectAll: "Select All / Invert",
-                legendOriginal: "Unselected Contours",
-                legendSelected: "Selected Contours",
-                legendCarveArea: "V-Carve Area (Blue)",
-                legendToolpath: "Toolpath (Yellow)",
-                estTime: "Est. Total Machining Time",
-                downloadBtn: "Download File",
-                jobSettings: "Machining Parameters (mm)",
-                groupSize: "Selected Group Size",
-                width: "Width",
-                height: "Height",
-                resolution: "Resolution (mm)",
-                feedRate: "Feed Rate",
-                toolType: "Tool Type",
-                optToolVBit: "V-Carve Bit",
-                optToolBallNose: "Ball Nose Cutter",
-                toolDia: "Tool Diameter (mm)",
-                vbitAngle: "V-Bit Angle (deg)",
-                pathOverlap: "Fineness (mm)",
-                pathAngle: "Path Angle (deg)",
-                totalDepth: "Machining Depth",
-                vcarveLayer: "V-Carve Region",
-                carveModeRelief: "Engraving Mode (Intaglio / Relief)",
-                optVCarveEven: "Carve Cavity (Default Blue Fill)",
-                optVCarveOdd: "Carve Core (Inverted)",
-                optReliefIncline: "Intaglio (Black Deep, White Shallow)",
-                optReliefEmboss: "Relief (White Deep, Black Shallow)",
-                updateBtn: "Update Toolpath",
-                selectionHint: "Please select a part from the left list<br>to configure parameters",
-                partName: "Part",
-                tagConvex: "Convex (No Machining)",
-                tagConcave: "Concave (Machining)",
-                tagLine: "Line Path",
-                tagRelief: "Grayscale Relief",
-                notApplied: "Not Applied",
-                vcarveErrorMsg: "Current configuration cannot execute V-Carve. Please increase cutting depth, bit angle or tool diameter, or reduce overall width."
+                appTitle: "Vカービング・グレースケール浮き彫りツール 2.0",
+                step1: "ステップ1：ファイル選択と解析",
+                chooseFile: "ファイルを選択",
+                noFile: "ファイルが選択されていません",
+                targetWidth: "全体幅 (mm)",
+                threshold: "しきい値",
+                smoothness: "簡略化",
+                highDetail: "← 詳細",
+                fewerNodes: "滑らか・シンプル →",
+                lineVCarve: "線のVカービング",
+                relief25D: "グレースケール浮き彫り",
+                reprocess: "ファイルを再解析",
+                step2: "ステップ2：パーツ一覧",
+                sortHint: "（大きい順）",
+                selectAll: "すべて選択 / 選択を反転",
+                legendOriginal: "未選択パーツの輪郭",
+                legendSelected: "選択中パーツの輪郭",
+                legendCarveArea: "Vカービング領域（青）",
+                legendToolpath: "加工経路（黄色）",
+                estTime: "推定加工時間",
+                downloadBtn: "ファイルをダウンロード",
+                jobSettings: "加工条件 (mm)",
+                groupSize: "選択中グループのサイズ",
+                width: "幅",
+                height: "高さ",
+                resolution: "解像度 (mm)",
+                feedRate: "送り速度",
+                toolType: "工具の種類",
+                optToolVBit: "Vビット",
+                optToolBallNose: "ボールエンドミル",
+                toolDia: "工具径 (mm)",
+                vbitAngle: "Vビット角度 (度)",
+                pathOverlap: "細かさ (mm)",
+                pathAngle: "経路角度 (度)",
+                totalDepth: "加工深さ",
+                vcarveLayer: "Vカービング領域",
+                carveModeRelief: "彫刻方式（陰刻 / 浮き彫り）",
+                optVCarveEven: "凹部を彫刻（青色部分）",
+                optVCarveOdd: "凸部を彫刻（反転）",
+                optReliefIncline: "陰刻（黒を深く、白を浅く）",
+                optReliefEmboss: "浮き彫り（白を深く、黒を浅く）",
+                updateBtn: "加工経路を更新",
+                selectionHint: "左側の一覧からパーツを選択して<br>加工条件を設定してください",
+                partName: "パーツ",
+                tagConvex: "凸部（加工なし）",
+                tagConcave: "凹部（加工あり）",
+                tagLine: "線加工",
+                tagRelief: "グレースケール浮き彫り",
+                notApplied: "未適用",
+                vcarveErrorMsg: "現在の設定ではVカービングを実行できません。加工深さ、ビット角度、工具径を大きくするか、全体幅を小さくしてください。"
             }
         };
 
-        let currentLang = localStorage.getItem('gordix-lang') || 'zh';
+        let currentLang = localStorage.getItem('gordix-lang') || 'en';
         let rawFileData = null; 
         let fileExtension = "";
         let originalFileName = "cnc_work";

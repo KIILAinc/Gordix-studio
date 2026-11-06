@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Draw Converter</title>
+    <title>ペン/レーザー彫刻</title>
     <script src="./tailwind.js"></script>
     <script>
         tailwind.config = {
@@ -142,24 +142,24 @@
             </div>
             <div class="flex gap-3 items-center">
                 <!-- 返回上一頁按鈕 -->
-                <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="返回上一頁 / Go Back">
+                <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="前のページに戻る">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <line x1="20" y1="12" x2="4" y2="12"></line>
                         <polyline points="10 18 4 12 10 6"></polyline>
                     </svg>
                 </button>
                 <!-- 主題切換 -->
-                <button id="theme-toggle" class="p-1.5 rounded-lg text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center justify-center" aria-label="Toggle Theme">
+                <button id="theme-toggle" class="p-1.5 rounded-lg text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center justify-center" aria-label="テーマを切り替え">
                     <svg id="theme-icon" class="w-4 h-4 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <!-- 圖示由 JS 動態注入 -->
                     </svg>
                 </button>
                 <!-- 語系切換 -->
                 <button id="lang-toggle" class="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-2">
-                    <span id="lang-toggle-text">中文 / EN</span>
+                    <span id="lang-toggle-text">中文 / 日本語</span>
                 </button>
                 <!-- 書頁按鈕 -->
-                <a href="params.html" class="flex items-center justify-center text-slate-300 hover:text-emerald-400 transition-colors bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="工藝參數建議 / Parameters Guide">
+                <a href="params.html" class="flex items-center justify-center text-slate-300 hover:text-emerald-400 transition-colors bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="加工条件ガイド">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
@@ -181,7 +181,7 @@
                     <div class="flex items-center gap-3">
                         <label for="file-input" class="custom-file-upload" id="i18n-btn-browse">選擇檔案</label>
                         <input type="file" id="file-input" accept="image/*,.svg,.dxf" class="hidden">
-                        <span id="file-name-display" class="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[150px]">No file chosen</span>
+                        <span id="file-name-display" class="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[150px]">ファイルが選択されていません</span>
                     </div>
                 </section>
 
@@ -438,55 +438,55 @@
                 noData: "請上傳檔案以產生加工數據"
             },
             en: {
-                title: "Draw Converter",
-                labelPenDiam: "Pen Body Dia.", 
-                toolLaser: "Laser engraving",
-                toolPen: "Pen",
-                labelSource: "1. Image Source",
-                btnBrowse: "Browse File",
-                labelWidth: "Output Width (mm)",
-                labelFeed: "Feed Rate (F)",
-                labelThreshold: "Threshold",
-                labelNoise: "Noise Filter (Contour)",
-                labelSingleLine: "Single-line mode (centerline)",
-                labelSingleLineWidth: "Maximum stroke width",
-                singleLineTip: "Traces only the centerlines of strokes. Enabling this option may increase processing time.",
-                labelSmooth: "Path Smoothing",
-                labelResolution: "Resolution (Step)",
-                labelFillTitle: "Fill Settings (Hatch)",
-                labelFillTip: "💡 Click canvas objects to toggle fill",
-                btnSelectAll: "All",
-                btnDeselectAll: "None",
-                labelAngle: "Fill Angle",
-                labelSpacing: "Spacing (mm)",
-                labelGrayFill: "Grayscale Hatch",
-                labelGrayscalePower: "Grayscale Power Range (S)",
-                labelMinS: "Min Power (S Min)",
-                labelMaxS: "Max Power (S Max)",
-                grayscalePowerTip: "Mapping: White ➔ S Min, Black ➔ S Max",
-                labelFormat: "Output Format",
-                btnDownload: "Download File",
-                legendContour: "Vector Contour",
-                legendFill: "Hatch Fill",
-                legendGrid: "5cm Grid Lines",
-                emptyMsg: "Upload image to start",
-                toggleImg: "Image",
-                toggleContour: "Contour",
-                toggleHatch: "Hatch",
-                opt0: "0° (Horizontal)",
-                opt45: "45° (Diagonal)",
-                opt90: "90° (Vertical)",
-                opt135: "135° (Reverse)",
-                smoothLabels: ["Raw", "Minimal", "Light", "Normal", "High", "Bezier", "Extreme"],
-                statsPrefix: "Size",
-                statsContours: "Contours",
-                statsLines: "Fill Lines",
-                noFile: "No file chosen",
-                noData: "Please upload a file to generate data"
+                title: "ペン/レーザー彫刻",
+                labelPenDiam: "ペン軸径",
+                toolLaser: "レーザー彫刻",
+                toolPen: "ペン",
+                labelSource: "1. 画像",
+                btnBrowse: "ファイルを選択",
+                labelWidth: "出力幅 (mm)",
+                labelFeed: "送り速度 (F)",
+                labelThreshold: "しきい値",
+                labelNoise: "ノイズ除去（輪郭）",
+                labelSingleLine: "単線モード（中心線）",
+                labelSingleLineWidth: "最大線幅",
+                singleLineTip: "線の中心線のみを描画します。有効にすると処理時間が長くなる場合があります。",
+                labelSmooth: "経路の平滑化",
+                labelResolution: "解像度（ステップ）",
+                labelFillTitle: "塗りつぶし設定（ハッチング）",
+                labelFillTip: "💡 キャンバス上の図形をクリックして塗りつぶしを切り替え",
+                btnSelectAll: "すべて",
+                btnDeselectAll: "なし",
+                labelAngle: "塗りつぶし角度",
+                labelSpacing: "間隔 (mm)",
+                labelGrayFill: "グレースケールのハッチング",
+                labelGrayscalePower: "グレースケール出力範囲 (S)",
+                labelMinS: "最小出力 (S最小)",
+                labelMaxS: "最大出力 (S最大)",
+                grayscalePowerTip: "対応：白 → S最小、黒 → S最大",
+                labelFormat: "出力形式",
+                btnDownload: "ファイルをダウンロード",
+                legendContour: "ベクター輪郭",
+                legendFill: "ハッチング塗りつぶし",
+                legendGrid: "5 cmグリッド",
+                emptyMsg: "画像をアップロードして開始",
+                toggleImg: "画像",
+                toggleContour: "輪郭",
+                toggleHatch: "ハッチング",
+                opt0: "0°（水平）",
+                opt45: "45°（斜め）",
+                opt90: "90°（垂直）",
+                opt135: "135°（逆斜め）",
+                smoothLabels: ["なし", "ごく弱い", "弱い", "標準", "強い", "ベジェ", "最大"],
+                statsPrefix: "サイズ",
+                statsContours: "輪郭数",
+                statsLines: "塗りつぶし線",
+                noFile: "ファイルが選択されていません",
+                noData: "データを生成するにはファイルをアップロードしてください"
             }
         };
 
-        let currentLang = localStorage.getItem('gordix-lang') || 'zh';
+        let currentLang = localStorage.getItem('gordix-lang') || 'en';
 
         const penDiamInput = document.getElementById('pen-diameter');
         const toolBadge = document.getElementById('tool-type-badge');
@@ -1054,7 +1054,7 @@
             selectedContourIndices = new Set(); // 載入新檔案時重置選擇紀錄
             originalPixelData = null;
             
-            document.getElementById('coord-range').innerText = currentLang === 'zh' ? '處理中...' : 'Processing...';
+            document.getElementById('coord-range').innerText = currentLang === 'zh' ? '處理中...' : '処理中…';
             downloadBtn.disabled = true;
             downloadBtn.className = "w-full py-4 bg-slate-300 dark:bg-slate-800 text-slate-500 cursor-not-allowed font-black rounded-xl transition flex flex-col items-center justify-center leading-tight";
             document.getElementById('empty-state').classList.remove('hidden');
@@ -2453,7 +2453,7 @@
 
             let g = [
                 `(Generated by Draw Converter)`, 
-                `(Tool: ${dPen === 0 ? 'Laser' : 'Pen Body ' + dPen + 'mm'})`, 
+                `(Tool: ${dPen === 0 ? 'レーザー' : 'ペン軸径 ' + dPen + 'mm'})`,
                 `(Y Offset Applied: ${yOffset.toFixed(3)}mm)`,
                 `G21`, 
                 `G90`, 

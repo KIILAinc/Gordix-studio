@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>參數指南 / Parameters Guide</title>
+    <title>加工条件ガイド</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="./tailwind.js"></script>
     <script>
@@ -41,7 +41,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-4 w-full md:w-auto">
                     <!-- 上一頁返回按鈕 (採用完全畫線、無外部資源之 SVG 圖示) -->
-                    <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-slate-700/50 hover:bg-slate-750 p-2.5 rounded-lg border border-slate-600/50 cursor-pointer" title="返回上一頁 / Go Back">
+                    <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-slate-700/50 hover:bg-slate-750 p-2.5 rounded-lg border border-slate-600/50 cursor-pointer" title="前のページに戻る">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <line x1="20" y1="12" x2="4" y2="12"></line>
                             <polyline points="10 18 4 12 10 6"></polyline>
@@ -55,11 +55,11 @@
                 
                 <div class="flex items-center gap-3 w-full md:w-auto justify-end">
                     <!-- 明暗切換 -->
-                    <button id="theme-toggle" class="p-2.5 rounded-lg bg-slate-700 border border-slate-600 text-slate-200 hover:text-orange-400 hover:border-orange-400/50 transition-all shadow-md dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300" title="切換主題 / Toggle Theme">
+                    <button id="theme-toggle" class="p-2.5 rounded-lg bg-slate-700 border border-slate-600 text-slate-200 hover:text-orange-400 hover:border-orange-400/50 transition-all shadow-md dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300" title="テーマを切り替え">
                         <span id="theme-icon" class="flex items-center justify-center"></span>
                     </button>
                     <button id="lang-toggle" class="px-4 py-2 rounded-lg bg-slate-700 border border-slate-600 text-sm font-bold text-slate-200 hover:text-orange-400 hover:border-orange-400/50 transition-all shadow-md dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300">
-                        EN
+                        日本語
                     </button>
                 </div>
             </div>
@@ -458,97 +458,97 @@
                 'out-doc-title': '下刀深度'
             },
             'en': {
-                'nav-subtitle': 'Parameters Guide',
-                'warning-desc': 'Running the Makita RT0700 continuously at low speed for a long time overloads the motor and can cause malfunction, so avoid prolonged low-speed operation. Results depend on belt tension and tool condition. Start conservatively on new materials.',
+                'nav-subtitle': '加工条件ガイド',
+                'warning-desc': 'Makita RT0700を低速で長時間連続運転すると、モーターに負荷がかかり故障するおそれがあります。低速での長時間運転は避けてください。加工結果はベルトの張りや工具の状態によって変わります。初めて加工する材料では控えめな条件から始めてください。',
                 'tab-cnc-text': 'CNC',
-                'tab-laser-text': 'Laser',
-                'cnc-matrix-title': 'Material Reference',
-                'th-material': 'Material',
-                'th-bit': 'Bit',
-                'th-rpm': 'Spindle (RPM)',
-                'th-feed': 'Feed (F)',
-                'th-doc': 'DOC (mm)',
-                'th-notes': 'Notes',
-                'mat-softwood': 'Softwood / MDF',
-                'note-softwood': 'Low resistance, fast chip evacuation. Feed too slow will scorch.',
-                'mat-plywood': 'Plywood',
-                'note-plywood': 'Climb milling reduces tear-out.',
-                'mat-hardwood': 'Hardwood<br>Beech / Walnut',
-                'note-hardwood': 'Shallow passes to spare the belts and the bit.',
-                'mat-toolingboard': 'Tooling Board',
-                'note-toolingboard': 'No grain direction, smooth edges.',
-                'mat-acrylic': 'Acrylic / POM',
-                'note-acrylic': 'Do not feed too slowly, or the plastic melts onto the bit.',
-                'mat-doublecolor': 'Engraving Plastic / ABS',
-                'note-doublecolor': 'Moderate speed and a steady feed prevent melting.',
-                'mat-softmetal': 'Soft Metals<br>Aluminum / Brass / Copper',
-                'note-softmetal': 'Shallow passes prevent breakage and lost steps. Keep at Dial 2 or above.',
-                'bit-2f-down': '1/4" <span class="font-normal text-slate-500 dark:text-slate-400">(or 6mm)</span><br>2-Flute Down-cut',
-                'bit-1f-up': '1/8" <span class="font-normal text-slate-500 dark:text-slate-400">(or 3mm)</span><br>1-Flute Up-cut',
-                'cutter-upcut': 'Up-cut',
-                'cutter-downcut': 'Down-cut',
-                'cutter-straight': 'Straight',
-                'flute-1': '1 Flute',
-                'flute-2': '2 Flutes',
-                'flute-3': '3 Flutes',
-                'flute-4': '4 Flutes',
-                'tip-tab-title': 'Tabs',
-                'tip-tab-desc': 'A fully cut-out part can shift or fly off on the final pass. Leave small tabs and trim them afterward.',
-                'tip-chip-title': 'Chips',
-                'tip-chip-desc': 'Healthy cutting makes chips, not dust. Squealing or scorching means RPM is too high or feed too slow: lower the dial (not below 3) or raise the feed (max F2000).',
-                'laser-guide-title': '10W 450nm Laser',
-                'btn-filter-cut': 'Cutting',
-                'btn-filter-engrave': 'Engraving',
-                'th-laser-power': 'Power',
-                'th-laser-speed': 'Speed (mm/min)',
-                'th-passes': 'Passes',
-                'th-air': 'Air',
-                'tip-air-title': 'Air Assist',
-                'tip-air-desc': 'Turn on for wood, MDF and leather: it clears embers, protects the lens and reduces charring.',
-                'tip-smoke-title': 'Ventilation & Safety',
-                'tip-smoke-desc': 'Never process PVC or synthetic leather: it releases corrosive chlorine gas. Work in a ventilated space with a carbon extractor.',
-                'calc-title': 'Recommender',
-                'calc-label-material': 'Material',
-                'calc-label-diameter': 'Diameter',
-                'calc-label-flutes': 'Flutes',
-                'calc-label-cutter-type': 'Cutter',
-                'mat-softwood-opt': 'Softwood / MDF',
-                'mat-plywood-opt': 'Plywood',
-                'mat-hardwood-opt': 'Hardwood',
-                'mat-toolingboard-opt': 'Tooling Board',
-                'mat-acrylic-opt': 'Acrylic / POM',
-                'mat-doublecolor-opt': 'Engraving Board / ABS',
-                'mat-aluminum-opt': 'Soft Metals',
-                'out-dial-title': 'Makita Dial',
-                'out-feed-title': 'Feed',
-                'out-doc-title': 'DOC'
+                'tab-laser-text': 'レーザー',
+                'cnc-matrix-title': '材料別設定表',
+                'th-material': '材料',
+                'th-bit': '工具',
+                'th-rpm': '主軸回転数 (RPM)',
+                'th-feed': '送り速度 (F)',
+                'th-doc': '切込み深さ (mm)',
+                'th-notes': '備考',
+                'mat-softwood': '針葉樹 / MDF',
+                'note-softwood': '切削抵抗が低く、切りくずを排出しやすい材料です。送りが遅すぎると焦げることがあります。',
+                'mat-plywood': '合板',
+                'note-plywood': 'ダウンカットで木層のささくれを抑えられます。',
+                'mat-hardwood': '広葉樹<br>ブナ / クルミ',
+                'note-hardwood': 'ベルトや工具への負荷を抑えるため、浅く切り込みます。',
+                'mat-toolingboard': 'ケミカルウッド',
+                'note-toolingboard': '木目がなく、切断面が滑らかです。',
+                'mat-acrylic': 'アクリル / POM',
+                'note-acrylic': '送りが遅すぎると樹脂が溶けて工具に付着するため、適切な速度で加工してください。',
+                'mat-doublecolor': '二層板 / ABS',
+                'note-doublecolor': '適度な回転数と一定の送り速度で、溶融を防ぎます。',
+                'mat-softmetal': '軟質金属<br>アルミ / 真鍮 / 銅',
+                'note-softmetal': '浅く切り込んで工具の破損や脱調を防ぎます。ダイヤルは2以上にしてください。',
+                'bit-2f-down': '1/4" <span class="font-normal text-slate-500 dark:text-slate-400">(または6 mm)</span><br>2枚刃ダウンカット',
+                'bit-1f-up': '1/8" <span class="font-normal text-slate-500 dark:text-slate-400">(または3 mm)</span><br>1枚刃アップカット',
+                'cutter-upcut': 'アップカット',
+                'cutter-downcut': 'ダウンカット',
+                'cutter-straight': 'ストレート',
+                'flute-1': '1枚刃',
+                'flute-2': '2枚刃',
+                'flute-3': '3枚刃',
+                'flute-4': '4枚刃',
+                'tip-tab-title': 'タブ（ブリッジ）',
+                'tip-tab-desc': '完全に切り離すと、最後のパスで部品がずれたり飛び出したりすることがあります。小さなタブを残し、加工後に切り取ってください。',
+                'tip-chip-title': '切りくず',
+                'tip-chip-desc': '適切な切削では粉ではなく切りくずが出ます。甲高い音や焦げは、回転数が高すぎるか送りが遅すぎる兆候です。ダイヤルを下げる（3未満にしない）か、送りを上げてください（上限 F2000）。',
+                'laser-guide-title': '10W・450 nmレーザー',
+                'btn-filter-cut': '切断',
+                'btn-filter-engrave': '彫刻',
+                'th-laser-power': '出力',
+                'th-laser-speed': '速度 (mm/min)',
+                'th-passes': 'パス数',
+                'th-air': 'エア',
+                'tip-air-title': 'エアアシスト',
+                'tip-air-desc': '木材、MDF、革の切断時に使うと火種を吹き飛ばし、レンズを保護して焦げを抑えられます。',
+                'tip-smoke-title': '換気と安全',
+                'tip-smoke-desc': 'PVCや合成皮革は加工しないでください。腐食性の塩素ガスが発生します。換気のよい場所で作業し、活性炭フィルター付き排煙装置を使用してください。',
+                'calc-title': '加工条件の目安',
+                'calc-label-material': '材料',
+                'calc-label-diameter': '直径',
+                'calc-label-flutes': '刃数',
+                'calc-label-cutter-type': '刃形',
+                'mat-softwood-opt': '針葉樹 / MDF',
+                'mat-plywood-opt': '合板',
+                'mat-hardwood-opt': '広葉樹',
+                'mat-toolingboard-opt': 'ケミカルウッド',
+                'mat-acrylic-opt': 'アクリル / POM',
+                'mat-doublecolor-opt': '二層板 / ABS',
+                'mat-aluminum-opt': '軟質金属',
+                'out-dial-title': 'Makitaダイヤル',
+                'out-feed-title': '送り速度',
+                'out-doc-title': '切込み深さ'
             }
         };
 
         // --- 2. 雷射模組參數數據 (適用10W，最高速度限制在 F2000 以內) ---
         const laserMatrixData = [
-            { matZh: '3mm MDF 密集板', matEn: '3mm MDF Board', typeZh: '精準切割', typeEn: 'Cutting', category: 'cut', power: '95%', speed: '200', passes: '3', airZh: '開啟', airEn: 'On' },
-            { matZh: 'MDF 密集板', matEn: 'MDF Board', typeZh: '表面雕刻', typeEn: 'Engraving', category: 'engrave', power: '30%', speed: '1500', passes: '1', airZh: '關閉 / 低風量', airEn: 'Off / Low' },
-            { matZh: '3mm 椴木膠合板', matEn: '3mm Basswood Plywood', typeZh: '精準切割', typeEn: 'Cutting', category: 'cut', power: '90%', speed: '350', passes: '2', airZh: '開啟', airEn: 'On' },
-            { matZh: '5mm 椴木膠合板', matEn: '5mm Basswood Plywood', typeZh: '精準切割', typeEn: 'Cutting', category: 'cut', power: '95%', speed: '150', passes: '3', airZh: '開啟', airEn: 'On' },
-            { matZh: '椴木膠合板', matEn: 'Basswood Plywood', typeZh: '一般雕刻', typeEn: 'Engraving', category: 'engrave', power: '25%', speed: '1500', passes: '1', airZh: '關閉 / 低風量', airEn: 'Off / Low' },
-            { matZh: '3mm 櫻桃木實木', matEn: '3mm Cherry Solid Wood', typeZh: '精準切割', typeEn: 'Cutting', category: 'cut', power: '90%', speed: '240', passes: '2', airZh: '開啟', airEn: 'On' },
-            { matZh: '櫻桃木/胡桃木實木', matEn: 'Cherry/Walnut Solid Wood', typeZh: '高對比雕刻', typeEn: 'Engraving', category: 'engrave', power: '35%', speed: '1200', passes: '1', airZh: '關閉', airEn: 'Off' },
-            { matZh: '3mm 壓克力(深色)', matEn: '3mm Dark Acrylic', typeZh: '精準切割', typeEn: 'Cutting', category: 'cut', power: '95%', speed: '250', passes: '2', airZh: '開啟', airEn: 'On' },
-            { matZh: '壓克力(深色)', matEn: 'Dark Acrylic', typeZh: '磨砂雕刻', typeEn: 'Engraving', category: 'engrave', power: '20%', speed: '1600', passes: '1', airZh: '關閉', airEn: 'Off' },
-            { matZh: '瓦楞紙 / 快遞紙箱', matEn: 'Cardboard Box', typeZh: '輪廓切割', typeEn: 'Cutting', category: 'cut', power: '70%', speed: '800', passes: '1', airZh: '開啟', airEn: 'On' },
-            { matZh: '黑卡紙 (250g)', matEn: 'Black Cardstock (250g)', typeZh: '高速切割', typeEn: 'Cutting', category: 'cut', power: '80%', speed: '1200', passes: '1', airZh: '開啟', airEn: 'On' },
-            { matZh: '植鞣皮革', matEn: 'Vegetable Tanned Leather', typeZh: '輪廓切割', typeEn: 'Cutting', category: 'cut', power: '80%', speed: '600', passes: '1', airZh: '開啟', airEn: 'On' },
-            { matZh: '植鞣皮革', matEn: 'Vegetable Tanned Leather', typeZh: '表面雕刻', typeEn: 'Engraving', category: 'engrave', power: '25%', speed: '1500', passes: '1', airZh: '關閉 / 低風量', airEn: 'Off / Low' },
-            { matZh: '不織布 / 毛氈 (2mm)', matEn: 'Felt (2mm)', typeZh: '高速切割', typeEn: 'Cutting', category: 'cut', power: '75%', speed: '700', passes: '1', airZh: '開啟', airEn: 'On' },
-            { matZh: '陽極氧化鋁表面', matEn: 'Anodized Aluminum', typeZh: '表面打標', typeEn: 'Marking', category: 'engrave', power: '60%', speed: '1800', passes: '1', airZh: '—', airEn: '—' },
-            { matZh: '304 不鏽鋼 (無鍍膜/需慢速)', matEn: '304 Stainless Steel (Bare)', typeZh: '高能雕刻/打標', typeEn: 'Marking', category: 'engrave', power: '95%', speed: '600', passes: '1', airZh: '—', airEn: '—' },
-            { matZh: '岩板 / 深色石材', matEn: 'Slate / Dark Stone', typeZh: '高對比雕刻', typeEn: 'Engraving', category: 'engrave', power: '80%', speed: '1400', passes: '1', airZh: '—', airEn: '—' },
-            { matZh: '平板玻璃 (需事先塗黑或貼貼紙)', matEn: 'Glass (Pre-treated Black)', typeZh: '磨砂打標', typeEn: 'Engraving', category: 'engrave', power: '90%', speed: '1000', passes: '1', airZh: '—', airEn: '—' }
+            { matZh: '3mm MDF 密集板', matEn: '3 mm MDFボード', typeZh: '精準切割', typeEn: '切断', category: 'cut', power: '95%', speed: '200', passes: '3', airZh: '開啟', airEn: 'オン' },
+            { matZh: 'MDF 密集板', matEn: 'MDFボード', typeZh: '表面雕刻', typeEn: '彫刻', category: 'engrave', power: '30%', speed: '1500', passes: '1', airZh: '關閉 / 低風量', airEn: 'オフ / 弱' },
+            { matZh: '3mm 椴木膠合板', matEn: '3 mm バスウッド合板', typeZh: '精準切割', typeEn: '切断', category: 'cut', power: '90%', speed: '350', passes: '2', airZh: '開啟', airEn: 'オン' },
+            { matZh: '5mm 椴木膠合板', matEn: '5 mm バスウッド合板', typeZh: '精準切割', typeEn: '切断', category: 'cut', power: '95%', speed: '150', passes: '3', airZh: '開啟', airEn: 'オン' },
+            { matZh: '椴木膠合板', matEn: 'バスウッド合板', typeZh: '一般雕刻', typeEn: '彫刻', category: 'engrave', power: '25%', speed: '1500', passes: '1', airZh: '關閉 / 低風量', airEn: 'オフ / 弱' },
+            { matZh: '3mm 櫻桃木實木', matEn: '3 mm チェリー無垢材', typeZh: '精準切割', typeEn: '切断', category: 'cut', power: '90%', speed: '240', passes: '2', airZh: '開啟', airEn: 'オン' },
+            { matZh: '櫻桃木/胡桃木實木', matEn: 'チェリー / ウォールナット無垢材', typeZh: '高對比雕刻', typeEn: '彫刻', category: 'engrave', power: '35%', speed: '1200', passes: '1', airZh: '關閉', airEn: 'オフ' },
+            { matZh: '3mm 壓克力(深色)', matEn: '3 mm 濃色アクリル', typeZh: '精準切割', typeEn: '切断', category: 'cut', power: '95%', speed: '250', passes: '2', airZh: '開啟', airEn: 'オン' },
+            { matZh: '壓克力(深色)', matEn: '濃色アクリル', typeZh: '磨砂雕刻', typeEn: '彫刻', category: 'engrave', power: '20%', speed: '1600', passes: '1', airZh: '關閉', airEn: 'オフ' },
+            { matZh: '瓦楞紙 / 快遞紙箱', matEn: '段ボール', typeZh: '輪廓切割', typeEn: '切断', category: 'cut', power: '70%', speed: '800', passes: '1', airZh: '開啟', airEn: 'オン' },
+            { matZh: '黑卡紙 (250g)', matEn: '黒色カード紙 (250 g)', typeZh: '高速切割', typeEn: '切断', category: 'cut', power: '80%', speed: '1200', passes: '1', airZh: '開啟', airEn: 'オン' },
+            { matZh: '植鞣皮革', matEn: '植物タンニンなめし革', typeZh: '輪廓切割', typeEn: '切断', category: 'cut', power: '80%', speed: '600', passes: '1', airZh: '開啟', airEn: 'オン' },
+            { matZh: '植鞣皮革', matEn: '植物タンニンなめし革', typeZh: '表面雕刻', typeEn: '彫刻', category: 'engrave', power: '25%', speed: '1500', passes: '1', airZh: '關閉 / 低風量', airEn: 'オフ / 弱' },
+            { matZh: '不織布 / 毛氈 (2mm)', matEn: 'フェルト (2 mm)', typeZh: '高速切割', typeEn: '切断', category: 'cut', power: '75%', speed: '700', passes: '1', airZh: '開啟', airEn: 'オン' },
+            { matZh: '陽極氧化鋁表面', matEn: 'アルマイト加工アルミ', typeZh: '表面打標', typeEn: 'マーキング', category: 'engrave', power: '60%', speed: '1800', passes: '1', airZh: '—', airEn: '—' },
+            { matZh: '304 不鏽鋼 (無鍍膜/需慢速)', matEn: '304ステンレス鋼（無塗装）', typeZh: '高能雕刻/打標', typeEn: 'マーキング', category: 'engrave', power: '95%', speed: '600', passes: '1', airZh: '—', airEn: '—' },
+            { matZh: '岩板 / 深色石材', matEn: 'スレート / 暗色石材', typeZh: '高對比雕刻', typeEn: '彫刻', category: 'engrave', power: '80%', speed: '1400', passes: '1', airZh: '—', airEn: '—' },
+            { matZh: '平板玻璃 (需事先塗黑或貼貼紙)', matEn: 'ガラス（事前に黒く塗装）', typeZh: '磨砂打標', typeEn: '彫刻', category: 'engrave', power: '90%', speed: '1000', passes: '1', airZh: '—', airEn: '—' }
         ];
 
         // 狀態管理
-        let currentLang = 'zh';
+        let currentLang = 'en';
         let currentTab = 'cnc';
         let currentLaserFilter = 'cut'; // 'cut', 'engrave'
         let currentFlutes = 2;
@@ -577,7 +577,7 @@
             const savedTheme = localStorage.getItem('gordix-theme') || 'dark';
             setTheme(savedTheme);
 
-            const savedLang = localStorage.getItem('gordix-lang') || 'zh';
+            const savedLang = localStorage.getItem('gordix-lang') || 'en';
             setLanguage(savedLang);
 
             document.getElementById('theme-toggle').addEventListener('click', () => {
@@ -626,7 +626,7 @@
             currentLang = lang;
             localStorage.setItem('gordix-lang', lang);
             
-            document.getElementById('lang-toggle').innerText = lang === 'zh' ? 'EN' : '中文';
+            document.getElementById('lang-toggle').innerText = lang === 'zh' ? '日本語' : '中文';
 
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
@@ -639,11 +639,11 @@
             const toggleBtnText = document.getElementById('display-toggle-text');
             const speedHeader = document.getElementById('th-speed-header');
             if (currentTableDisplay === 'rpm') {
-                toggleBtnText.innerText = lang === 'zh' ? '切換為 Makita 刻度' : 'Switch to Makita Dial';
-                speedHeader.innerText = lang === 'zh' ? '主軸轉速 (RPM)' : 'Spindle Speed (RPM)';
+                toggleBtnText.innerText = lang === 'zh' ? '切換為 Makita 刻度' : 'Makitaダイヤル表示に切り替え';
+                speedHeader.innerText = lang === 'zh' ? '主軸轉速 (RPM)' : '主軸回転数 (RPM)';
             } else {
-                toggleBtnText.innerText = lang === 'zh' ? '切換為轉速 (RPM)' : 'Switch to RPM';
-                speedHeader.innerText = lang === 'zh' ? 'Makita 刻度' : 'Makita Dial';
+                toggleBtnText.innerText = lang === 'zh' ? '切換為轉速 (RPM)' : 'RPM表示に切り替え';
+                speedHeader.innerText = lang === 'zh' ? 'Makita 刻度' : 'Makitaダイヤル';
             }
 
             updateLaserTable();
@@ -729,11 +729,11 @@
             const speedHeader = document.getElementById('th-speed-header');
             
             if (currentTableDisplay === 'rpm') {
-                toggleBtnText.innerText = currentLang === 'zh' ? '切換為 Makita 刻度' : 'Switch to Makita Dial';
-                speedHeader.innerText = currentLang === 'zh' ? '主軸轉速 (RPM)' : 'Spindle Speed (RPM)';
+                toggleBtnText.innerText = currentLang === 'zh' ? '切換為 Makita 刻度' : 'Makitaダイヤル表示に切り替え';
+                speedHeader.innerText = currentLang === 'zh' ? '主軸轉速 (RPM)' : '主軸回転数 (RPM)';
             } else {
-                toggleBtnText.innerText = currentLang === 'zh' ? '切換為轉速 (RPM)' : 'Switch to RPM';
-                speedHeader.innerText = currentLang === 'zh' ? 'Makita 刻度' : 'Makita Dial';
+                toggleBtnText.innerText = currentLang === 'zh' ? '切換為轉速 (RPM)' : 'RPM表示に切り替え';
+                speedHeader.innerText = currentLang === 'zh' ? 'Makita 刻度' : 'Makitaダイヤル';
             }
 
             const cells = [
@@ -913,7 +913,7 @@
             const warningEl = document.getElementById('out-limit-warning');
             if (isLimited) {
                 warningEl.classList.remove('hidden');
-                warningEl.innerText = currentLang === 'zh' ? '走速上限已限制在 F2000' : 'Feed capped at F2000';
+                warningEl.innerText = currentLang === 'zh' ? '走速上限已限制在 F2000' : '送り速度の上限はF2000です';
             } else {
                 warningEl.classList.add('hidden');
             }
