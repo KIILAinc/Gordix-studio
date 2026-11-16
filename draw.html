@@ -1061,7 +1061,8 @@
                     if (insunits === 6) unitScale = 1000; 
                     
                     const rawPaths = await extractPointsFromDxf(dxfText);
-                    rawSvgPaths = rawPaths.map(pts => pts.map(p => ({ x: p.x * unitScale, y: p.y * unitScale })));
+                    // DXF は Y 軸が上向き、このページの内部座標（SVG と同じ）は下向きなので Y を反転する
+                    rawSvgPaths = rawPaths.map(pts => pts.map(p => ({ x: p.x * unitScale, y: -p.y * unitScale })));
                     
                     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
                     rawSvgPaths.forEach(pts => pts.forEach(p => {
