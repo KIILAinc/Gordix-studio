@@ -78,6 +78,20 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link class="apple-touch-icon" href="icon-192.png">
     <script src="lang-tabs.js"></script>
+    <script src="dxf-curves.js"></script>
+    <style>
+        /* ? ヘルプアイコンとツールチップ / help icon + tooltip */
+        .gx-help{position:relative;display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:9999px;
+            font:700 9px/1 system-ui,sans-serif;color:#64748b;border:1px solid currentColor;cursor:help;flex-shrink:0;user-select:none}
+        .dark .gx-help{color:#94a3b8}
+        .gx-help:hover,.gx-help:focus-visible{color:#ea580c;outline:none}
+        .gx-tip{position:absolute;bottom:calc(100% + 8px);left:-8px;z-index:50;width:240px;padding:8px 10px;border-radius:8px;
+            background:#0f172a;color:#f1f5f9;border:1px solid #334155;box-shadow:0 8px 24px rgba(0,0,0,.35);
+            font:500 11px/1.6 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP","Noto Sans TC",sans-serif;text-align:left;white-space:normal;
+            opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .15s,transform .15s,visibility .15s;pointer-events:none}
+        .gx-tip::after{content:"";position:absolute;top:100%;left:12px;border:6px solid transparent;border-top-color:#0f172a}
+        .gx-help:hover .gx-tip,.gx-help:focus .gx-tip{opacity:1;visibility:visible;transform:translateY(0)}
+    </style>
 </head>
 <body class="flex flex-col min-h-screen">
     <div class="max-w-7xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-colors duration-300">
@@ -214,7 +228,10 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-[10px] text-slate-500 dark:text-slate-400 font-bold mb-1" data-i18n="resolution">解析度 (mm)</label>
+                                <div class="flex items-center gap-1 mb-1">
+                                    <label for="resolution" class="text-[10px] text-slate-500 dark:text-slate-400 font-bold" data-i18n="resolution">解析度 (mm)</label>
+                                    <span class="gx-help" tabindex="0" role="button" aria-label="?" aria-describedby="resolution-help">?<span id="resolution-help" role="tooltip" class="gx-tip" data-i18n="resolutionHelp">加工路徑（黃色線）上點與點之間的最小間距。與前一點距離小於此值（mm）的點會被省略。數值越小曲線越平滑，但 G-code 會變長。一般維持 0.1 即可（最小 0.1）。</span></span>
+                                </div>
                                 <input type="number" id="resolution" value="0.1" min="0.1" step="0.01">
                             </div>
                             <div>
@@ -707,6 +724,7 @@
                 width: "寬度",
                 height: "高度",
                 resolution: "解析度",
+                resolutionHelp: "加工路徑（黃色線）上點與點之間的最小間距。與前一點距離小於此值（mm）的點會被省略。數值越小曲線越平滑，但 G-code 會變長。一般維持 0.1 即可（最小 0.1）。",
                 feedRate: "進給速率",
                 mode: "加工模式",
                 optLaser: "雷射切割",
@@ -758,6 +776,7 @@
                 width: "Width",
                 height: "Height",
                 resolution: "Resolution",
+                resolutionHelp: "Minimum spacing between points of the toolpath (yellow line). Points closer than this distance (mm) to the previous point are dropped. Smaller values give smoother curves but longer G-code. 0.1 works for most jobs (minimum 0.1).",
                 feedRate: "Feed Rate (F)",
                 mode: "Process Mode",
                 optLaser: "Laser Cutting",
@@ -809,6 +828,7 @@
                 width: "幅",
                 height: "高さ",
                 resolution: "解像度",
+                resolutionHelp: "加工経路（黄色の線）の点と点の最小間隔です。前の点からこの距離（mm）より近い点は省かれます。小さいほど曲線がなめらかになりますが、Gコードが長くなります。通常は 0.1 のままで問題ありません（最小 0.1）。",
                 feedRate: "送り速度 (F)",
                 mode: "加工モード",
                 optLaser: "レーザー切断",
@@ -1332,33 +1352,11 @@
 
         // --- DXF 向量解析與圖層讀取 ---
         function parseDXF(dxfString, targetW, smoothTol) {
-            const parser = new DxfParser();
+            // 曲線 (SPLINE / ELLIPSE / bulge / INSERT) 由 dxf-curves.js 處理
             try {
-                const dxf = parser.parseSync(dxfString);
-                const paths = [];
-
-                dxf.entities.forEach(ent => {
-                    let pts = [];
-                    if (ent.type === 'LINE') {
-                        pts = [{x: ent.vertices[0].x, y: ent.vertices[0].y}, {x: ent.vertices[1].x, y: ent.vertices[1].y}];
-                    } else if (ent.type === 'LWPOLYLINE' || ent.type === 'POLYLINE') {
-                        ent.vertices.forEach(v => pts.push({x: v.x, y: v.y}));
-                        if (ent.shape) pts.push(pts[0]);
-                    } else if (ent.type === 'CIRCLE' || ent.type === 'ARC') {
-                        const start = ent.startAngle || 0, end = ent.endAngle !== undefined ? ent.endAngle : Math.PI*2;
-                        const r = ent.radius, steps = 64;
-                        for(let i=0; i<=steps; i++) {
-                            const a = start + (end-start)*(i/steps);
-                            pts.push({ x: ent.center.x + Math.cos(a)*r, y: ent.center.y + Math.sin(a)*r });
-                        }
-                    }
-                    if (pts.length > 1) {
-                        paths.push({
-                            points: simplifyPath(pts, smoothTol),
-                            layer: ent.layer || "Default"
-                        });
-                    }
-                });
+                const paths = GordixDXF.parse(dxfString).paths
+                    .filter(p => p.points.length > 1)
+                    .map(p => ({ points: simplifyPath(p.points, smoothTol), layer: p.layer || "Default" }));
                 return scaleVectorPaths(paths, targetW);
             } catch(e) {
                 console.error("DXF Parse Error", e);
@@ -1366,7 +1364,6 @@
             }
         }
 
-        // --- 縮放與置中輔助 ---
         function scaleVectorPaths(paths, targetW) {
             if (paths.length === 0) return [];
             let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;

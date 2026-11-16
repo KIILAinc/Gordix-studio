@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gordix-studio-v2.6'; // 更新版本號以觸發 activate 清除舊快取
+const CACHE_NAME = 'gordix-studio-v2.7'; // 更新版本號以觸發 activate 清除舊快取
 
 const ASSETS = [
   './', // 必須快取根目錄
@@ -13,7 +13,8 @@ const ASSETS = [
   './icon-192.png',
   './icon-512.png',
   './tailwind.js',
-  './lang-tabs.js'
+  './lang-tabs.js',
+  './dxf-curves.js'
 ];
 
 // 1. 安裝階段 (Install): 預先下載並快取所有 ASSETS

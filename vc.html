@@ -115,6 +115,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link class="apple-touch-icon" href="icon-192.png">
     <script src="lang-tabs.js"></script>
+    <script src="dxf-curves.js"></script>
 </head>
 <body class="flex flex-col min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-200">
     <div class="max-w-7xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-colors duration-300">
@@ -1302,29 +1303,11 @@
         }
 
         function parseDXF(dxfString, smoothTol) {
-            const parser = new DxfParser();
+            // 曲線 (SPLINE / ELLIPSE / bulge / INSERT) 由 dxf-curves.js 處理
             try {
-                const dxf = parser.parseSync(dxfString);
-                const paths = [];
-
-                dxf.entities.forEach(ent => {
-                    let pts = [];
-                    if (ent.type === 'LINE') {
-                        pts = [{x: ent.vertices[0].x, y: ent.vertices[0].y}, {x: ent.vertices[1].x, y: ent.vertices[1].y}];
-                    } else if (ent.type === 'LWPOLYLINE' || ent.type === 'POLYLINE') {
-                        ent.vertices.forEach(v => pts.push({x: v.x, y: v.y}));
-                        if (ent.shape) pts.push(pts[0]);
-                    } else if (ent.type === 'CIRCLE' || ent.type === 'ARC') {
-                        const start = ent.startAngle || 0, end = ent.endAngle !== undefined ? ent.endAngle : Math.PI*2;
-                        const r = ent.radius, steps = 64;
-                        for(let i=0; i<=steps; i++) {
-                            const a = start + (end-start)*(i/steps);
-                            pts.push({ x: ent.center.x + Math.cos(a)*r, y: ent.center.y + Math.sin(a)*r });
-                        }
-                    }
-                    if (pts.length > 1) paths.push(simplifyPath(pts, smoothTol));
-                });
-                return paths;
+                return GordixDXF.parse(dxfString).paths
+                    .filter(p => p.points.length > 1)
+                    .map(p => ({ points: simplifyPath(p.points, smoothTol), layer: p.layer || "Default" }));
             } catch(e) {
                 console.error("DXF Parse Error", e);
                 return [];
