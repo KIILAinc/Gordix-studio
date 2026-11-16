@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>テーブル設定</title>
+    <title>Table Configurator / 桌長配置產生器 / テーブル寸法設定</title>
 <script src="./tailwind.js"></script>
     <style>
         :root {
@@ -269,6 +269,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="icon-192.png">
 
+    <script src="lang-tabs.js"></script>
 </head>
 <body class="p-2 md:p-8">
     <div class="max-w-7xl mx-auto">
@@ -279,22 +280,20 @@
             </div>
             <div class="flex gap-3 items-center">
                 <!-- 返回上一頁按鈕 -->
-                <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="前のページに戻る">
+                <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='index.html'; }" class="flex items-center justify-center text-slate-300 hover:text-orange-400 transition-colors font-bold bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 cursor-pointer" title="Go Back / 返回上一頁 / 前のページに戻る">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <line x1="20" y1="12" x2="4" y2="12"></line>
                         <polyline points="10 18 4 12 10 6"></polyline>
                     </svg>
                 </button>
                 <!-- 主題切換 (太陽/月亮描邊圖示，無任何文字) -->
-                <button id="theme-toggle-btn" onclick="toggleTheme()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all flex items-center justify-center animate-pulse-slow" aria-label="テーマを切り替え">
+                <button id="theme-toggle-btn" onclick="toggleTheme()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all flex items-center justify-center animate-pulse-slow" aria-label="Toggle Theme">
                     <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <!-- SVG path 由 JS 動態注入 -->
                     </svg>
                 </button>
                 <!-- 語言切換 -->
-                <button onclick="toggleLang()" class="px-4 py-1.5 rounded-lg text-[13px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all flex items-center justify-center gap-2">
-                    <span>中文 / 日本語</span>
-                </button>
+                <div id="lang-tabs"></div>
             </div>
         </header>
 
@@ -395,7 +394,7 @@
         const ctx = canvas.getContext('2d');
         const container = document.getElementById('canvas-container');
         
-        let currentLang = 'en';
+        let currentLang = 'zh';
         let currentTheme = 'dark'; // 預設深色模式
 
         const i18n = {
@@ -415,19 +414,34 @@
                 sideD: "對角D"
             },
             en: {
-                title: "テーブル設定",
+                title: "Table Configurator",
+                scaleX: "Scale X",
+                scaleY: "Scale Y",
+                listTitle: "TABLE Data List",
+                rangeLabel: "Working coordinate range (±X, ±Y) mm:",
+                download: "Download table.cfg",
+                upload: "Upload table.cfg",
+                table: "Table",
+                sideN: "Side N",
+                sideS: "Side S",
+                sideW: "Side W",
+                sideE: "Side E",
+                sideD: "Diagonal D"
+            },
+            ja: {
+                title: "テーブル寸法設定",
                 scaleX: "X倍率",
                 scaleY: "Y倍率",
                 listTitle: "テーブルデータ一覧",
                 rangeLabel: "加工座標範囲 (±X, ±Y) mm：",
-                download: "table.cfgをダウンロード",
-                upload: "table.cfgをアップロード",
+                download: "table.cfgを保存",
+                upload: "table.cfgを読み込む",
                 table: "テーブル",
-                sideN: "北側 N",
-                sideS: "南側 S",
-                sideW: "西側 W",
-                sideE: "東側 E",
-                sideD: "対角 D"
+                sideN: "辺 N",
+                sideS: "辺 S",
+                sideW: "辺 W",
+                sideE: "辺 E",
+                sideD: "対角線 D"
             }
         };
 
@@ -470,9 +484,8 @@
             draw();
         }
 
-        function toggleLang() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            localStorage.setItem('gordix-lang', currentLang);
+        function setLang(l) {
+            currentLang = l;
             updateUI();
         }
 
@@ -834,13 +847,8 @@
         window.addEventListener('resize', draw);
         window.onload = () => {
             // 讀取並同步語系設定 (優先使用統一儲存鍵值 gordix-lang)
-            const savedLang = localStorage.getItem('gordix-lang');
-            if (savedLang === 'en' || savedLang === 'zh') {
-                currentLang = savedLang;
-            } else {
-                currentLang = 'en'; // 初期表示は日本語
-                localStorage.setItem('gordix-lang', 'en');
-            }
+            currentLang = GordixLang.initial();
+            GordixLang.mount(document.getElementById('lang-tabs'), currentLang, setLang);
 
             // 讀取並同步主題設定 (優先使用統一儲存鍵值 gordix-theme)
             const savedTheme = localStorage.getItem('gordix-theme');
